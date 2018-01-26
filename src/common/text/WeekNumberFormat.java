@@ -47,6 +47,8 @@ public class WeekNumberFormat {
 		if (month > 0 && month < 13) {
 			result += monthNames[month -1];
 		}
+		
+		result += " (semaine " + weekOfYear + ")";
 			
 		return result;
 	}
