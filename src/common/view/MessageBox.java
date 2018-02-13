@@ -269,8 +269,10 @@ public class MessageBox {
 		data.horizontalIndent = 16;
 		data.verticalIndent = 16;
 	    label.setLayoutData(data);
-		label.setText(msg);
-
+	    if (msg != null) {
+	    	label.setText(msg);
+	    }
+	    
 		final Button btnOk = widgetsFactory.createOkButton(shell,
 				new SelectionAdapter() {
 			@Override
