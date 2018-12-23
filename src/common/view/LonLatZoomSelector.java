@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 
+import common.data.HasMapCoordinates;
+
 /**
  * Widget to define map coordinates : longitude, latitude and zoom.
  * <p>A link to OpenStreetMap is provided, and an OpenStreetMap URL can be parsed to input values.
@@ -35,6 +37,7 @@ public class LonLatZoomSelector extends Composite {
 	private Text textLatitude;
 	private Spinner spiZoom;
 	private Button btnPreview;
+	private Button btnParse;
 	
 	private Vector<LonLatZoomSelectionListener> vecListeners;
 	
@@ -108,7 +111,19 @@ public class LonLatZoomSelector extends Composite {
 		setLongitude(dLongitude);
 		setLatitude(dLatitude);
 		setZoom(iZoom);
-		enableWidgets();
+		enableWidgets(true);
+	}
+	
+	/**
+	 * Sets the selection from the specified object with map coordinates.
+	 * @param obj  the object from which to set the selection
+	 */
+	public void setSelection(HasMapCoordinates obj) {
+		if (obj != null) {
+			setSelection(obj.getLongitude(), obj.getLatitude(), obj.getMapZoom());
+		} else {
+			clear();
+		}
 	}
 	
 	/**
@@ -118,6 +133,7 @@ public class LonLatZoomSelector extends Composite {
 		setZoom(14);
 		setLongitude(null);
 		setLatitude(null);
+		enableWidgets(false);
 	}
 
 	/**
@@ -154,7 +170,7 @@ public class LonLatZoomSelector extends Composite {
 					dLongitude = null;
 					textLongitude.setForeground(getDisplay().getSystemColor(SWT.COLOR_RED));
 				}
-				enableWidgets();
+				enableWidgets(true);
 			}
 		});
 
@@ -170,7 +186,7 @@ public class LonLatZoomSelector extends Composite {
 					dLatitude = null;
 					textLatitude.setForeground(getDisplay().getSystemColor(SWT.COLOR_RED));
 				}
-				enableWidgets();
+				enableWidgets(true);
 			}
 		});
 
@@ -182,7 +198,7 @@ public class LonLatZoomSelector extends Composite {
 			}
 		});
 		
-		WidgetsFactory.getInstance().createPushButton(this, "Lire URL", "edit", "Lire depuis une URL OpenStreetMap", 
+		btnParse = WidgetsFactory.getInstance().createPushButton(this, "Lire URL", "edit", "Lire depuis une URL OpenStreetMap", 
 				new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				parseOpenStreetMapURL();
@@ -231,9 +247,10 @@ public class LonLatZoomSelector extends Composite {
 		}
 	}
 	
-	private void enableWidgets() {
+	private void enableWidgets(boolean isEnabled) {
 		boolean isValidCoords = (dLongitude != null && dLatitude != null);
-		btnPreview.setEnabled(isValidCoords);
+		btnPreview.setEnabled(isEnabled && isValidCoords);
+		btnParse.setEnabled(isEnabled);
 	}
 
 }
