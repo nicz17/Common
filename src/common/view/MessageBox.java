@@ -143,14 +143,33 @@ public class MessageBox {
 	 * @return the user response
 	 */
 	public static boolean askYesNo(String msg) {
+		return askYesNo(msg, null, null);
+	}
+	
+	/**
+	 * Displays a dialog asking the user for a yes/no response.
+	 * 
+	 * @param msg the question asked to user
+	 * @param title  the dialog title. May be null.
+	 * @param icon   the dialog icon. May be null.
+	 * @return the user response
+	 */
+	public static boolean askYesNo(String msg, String title, String icon) {
+		if (title == null) {
+			title = appName;
+		}
 		Display display = parent.getDisplay();
 		final Shell shell =
 			new Shell(parent, SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL);
-		shell.setText(appName);
+		shell.setText(title);
 		shell.setLayout(new GridLayout(3, false));
 		
 	    Label lblImg = new Label(shell, SWT.NONE);
-	    lblImg.setImage(display.getSystemImage(SWT.ICON_QUESTION));
+	    if (icon != null) {
+			lblImg.setImage(IconManager.getIcon(icon));
+		} else {
+			lblImg.setImage(display.getSystemImage(SWT.ICON_QUESTION));
+		}
 	    lblImg.setLayoutData(new GridData());
 		
 		Label lblMsg = new Label(shell, SWT.WRAP);

@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public class DateTimeSelector extends Composite {
 	private DateFormat dateFormat;
+	private int iDateLength;
 	private Date tAt;
 	private Text textDateTime;
 	private Label lblStatus;
@@ -47,10 +48,11 @@ public class DateTimeSelector extends Composite {
 	 * 
 	 * @param parent the parent Composite.
 	 */
-	public DateTimeSelector(Composite parent, DateFormat dateFormat) {
+	public DateTimeSelector(Composite parent, DateFormat dateFormat, int iDateLength) {
 		super(parent, 0);
 
 		this.dateFormat = dateFormat;
+		this.iDateLength = iDateLength;
 		this.tAt = null;
 		this.vecListeners = new Vector<DateTimeSelectionListener>();
 		
@@ -113,10 +115,14 @@ public class DateTimeSelector extends Composite {
 	 * Build the to Spinners that allow selecting the size.
 	 */
 	private void buildWidgets() {
-		textDateTime = WidgetsFactory.getInstance().createText(this, 19, new ModifyListener() {
+		textDateTime = WidgetsFactory.getInstance().createText(this, iDateLength, new ModifyListener() {
 			@Override
 			public void modifyText(ModifyEvent evt) {
 				try {
+					String sAt = textDateTime.getText();
+					if (sAt == null || sAt.length() != iDateLength) {
+						throw new ParseException("Invalid date length, expected " + iDateLength, 0);
+					}
 					tAt = dateFormat.parse(textDateTime.getText());
 					lblStatus.setText("");
 					textDateTime.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));

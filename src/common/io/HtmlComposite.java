@@ -617,6 +617,22 @@ public abstract class HtmlComposite {
 	}
 	
 	/**
+	 * Adds the specified Javascript code in a script tag.
+	 * @param sCode  the Javascript code to add
+	 * @return the created script tag
+	 */
+	public HtmlComposite addJavascript(final String sCode) {
+		return add(new HtmlComposite() {
+			@Override
+			public void write(StringBuffer sb) {
+				output(sb, "<script>");
+				output(sb, sCode);
+				output(sb, "</script>");
+			}
+		});		
+	}
+	
+	/**
 	 * Adds the specified JS script to the head.
 	 * 
 	 * @param path the relative path to the JS file.
@@ -688,7 +704,8 @@ public abstract class HtmlComposite {
 		//System.out.println(level + " " + out);
 		for (int i=0; addNewLine && i<level; i++)
 			sb.append(indent);
-		sb.append(SpecialChars.frToHtml(out));
+		//sb.append(SpecialChars.frToHtml(out));
+		sb.append(out);
 		if (addNewLine) {
 			sb.append("\n");
 		}
