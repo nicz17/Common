@@ -17,6 +17,17 @@ public class DurationFormat {
 	 * @return the formatted duration
 	 */
 	public String format(long duration) {
+		return format(duration, true);
+	}
+
+	/**
+	 * Formats the given duration in milliseconds into a human-readable form.
+	 * 
+	 * @param duration the duration in milliseconds
+	 * @param bWithSeconds  true to display seconds, else only hours and minutes.
+	 * @return the formatted duration
+	 */
+	public String format(long duration, boolean bWithSeconds) {
 		String result = "";
 		
 		final long second = 1000l;
@@ -37,12 +48,12 @@ public class DurationFormat {
 			duration -= nMinutes*minute;
 			result += nMinutes + " minutes ";
 		}
-		if (duration >= second) {
+		if (bWithSeconds && duration >= second) {
 			int nSeconds = (int) (duration/second);
 			duration -= nSeconds*second;
 			result += nSeconds + " secondes ";
 		}
-		if (duration > 0) {
+		if (bWithSeconds && duration > 0) {
 			result += duration + " ms";
 		}
 		

@@ -509,8 +509,7 @@ public abstract class HtmlComposite {
 		add(new HtmlComposite() {
 			@Override
 			public void write(StringBuffer sb) {
-				output(sb, "<a" + makeParam("href", url) + makeParam("title", title) + ">");
-				output(sb, text + "</a>", false);
+				output(sb, "<a" + makeParam("href", url) + makeParam("title", title) + ">" + text + "</a>");
 			}
 		});
 	}
@@ -534,12 +533,27 @@ public abstract class HtmlComposite {
 	 * @param text  the link text
 	 */
 	public void addLinkExternal(final String url, final String title, final String text) {
+		addLinkExternal(url, title, text, null);
+	}
+
+	/**
+	 * Adds an external link to the given URL.
+	 * target="_blank"
+	 * @param url the URL to link to
+	 * @param title the link title for tooltips
+	 * @param text  the link text
+	 * @param rel   the link relation
+	 */
+	public void addLinkExternal(final String url, final String title, final String text, final String rel) {
 		add(new HtmlComposite() {
 			@Override
 			public void write(StringBuffer sb) {
-				output(sb, "<a" + makeParam("href", url) + makeParam("title", title) +
-						makeParam("target", "_blank") + ">");
-				output(sb, text + "</a>");
+				output(sb, "<a" + 
+					makeParam("href",  url) + 
+					makeParam("title", title) +
+					makeParam("rel",   rel) +
+					makeParam("target", "_blank") + 
+					">" + text + "</a>");
 			}
 		});
 	}

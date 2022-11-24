@@ -27,7 +27,7 @@ public interface HasMapCoordinates {
 
 	/**
 	 * Gets the zoom level preferred for displaying this object on a map.
-	 * Zoom level is between 1 (whole world) and 19 (as small area).
+	 * Zoom level is between 1 (whole world) and 19 (a small area).
 	 * @return the zoom level (1 to 19).
 	 */
 	public int getMapZoom();

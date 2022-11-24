@@ -238,9 +238,13 @@ public class LonLatZoomSelector extends Composite {
 			String url = String.format("https://www.openstreetmap.org/#map=%d/%f/%f", 
 					iZoom, dLatitude.doubleValue(), dLongitude.doubleValue());
 			try {
-				Runtime.getRuntime().exec(new String[] {"google-chrome-stable", url});
+				Runtime.getRuntime().exec(new String[] {"firefox", url});
 			} catch (IOException e) {
-				MessageBox.error(e);
+				try {
+					Runtime.getRuntime().exec(new String[] {"google-chrome-stable", url});
+				} catch (IOException e2) {
+					MessageBox.error(e2);
+				}
 			}
 		} else {
 			MessageBox.error("Veuillez entrer des coordonnées valides !");
