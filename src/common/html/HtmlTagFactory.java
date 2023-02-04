@@ -10,6 +10,25 @@ package common.html;
  */
 public class HtmlTagFactory {
 	
+	public static HtmlTag blueBox(String title) {
+		DivHtmlTag div = new DivHtmlTag(null);
+		div.addAttribute("class", "myBox");
+		div.addTag(new HtmlTag("h2", title));
+		return div;
+	}
+	
+	/**
+	 * Creates a link element.
+	 * @param href  the reference
+	 * @param text  the link text
+	 * @return  the created HTML tag
+	 */
+	public static HtmlTag anchor(String href) {
+		HtmlTag link = new HtmlTag("a");
+		link.addAttribute("name", href);
+		return link;
+	}
+	
 	/**
 	 * Creates a link element.
 	 * @param href  the reference
@@ -17,8 +36,21 @@ public class HtmlTagFactory {
 	 * @return  the created HTML tag
 	 */
 	public static HtmlTag link(String href, String text) {
+		return link(href, text, false);
+	}
+	
+	/**
+	 * Creates a link element.
+	 * @param href  the reference
+	 * @param text  the link text
+	 * @return  the created HTML tag
+	 */
+	public static HtmlTag link(String href, String text, boolean isExternal) {
 		HtmlTag link = new HtmlTag("a", text);
 		link.addAttribute("href", href);
+		if (isExternal) {
+			link.addAttribute("target", "_blank");
+		}
 		return link;
 	}
 	
@@ -29,12 +61,28 @@ public class HtmlTagFactory {
 	 * @return  the created HTML tag
 	 */
 	public static HtmlTag image(String source, String title) {
-		HtmlTag img = new HtmlTag("img");
+		HtmlTag img = new HtmlTag("img") {
+			protected boolean needEndTag() {
+				return false;
+			}
+		};
 		img.addAttribute("src", source);
 		if (title != null) {
 			img.addAttribute("title", title);
 		}
 		return img;
+	}
+	
+	public static HtmlTag cssLink(String url) {
+		HtmlTag tagCss = new HtmlTag("link") {
+			protected boolean needEndTag() {
+				return false;
+			}
+		};
+		tagCss.addAttribute("rel", "stylesheet");
+		tagCss.addAttribute("type", "text/css");
+		tagCss.addAttribute("href", url);
+		return tagCss;
 	}
 	
 	/**

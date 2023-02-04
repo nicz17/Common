@@ -53,6 +53,7 @@ public class HtmlTag {
 	
 	protected String toHtml(int iDepth, boolean isInline) {
 		StringBuffer sbHtml = new StringBuffer();
+		int nChildren = countChildren();
 		
 		if (!isInline) {
 			sbHtml.append(getIndent(iDepth));
@@ -69,14 +70,15 @@ public class HtmlTag {
 		}
 		
 		for (HtmlTag tag : vecTags) {
-			sbHtml.append(tag.toHtml(iDepth+1, isInline));
+			sbHtml.append(tag.toHtml(iDepth+1, nChildren < 2));
 		}
 
-		if (!isInline && !vecTags.isEmpty()) {
-			sbHtml.append(getIndent(iDepth));
+		if (needEndTag()) {
+			if (!isInline && nChildren > 1) {
+				sbHtml.append(getIndent(iDepth));
+			}
+			sbHtml.append("</" + sName + ">");
 		}
-		sbHtml.append("</" + sName + ">");
-		
 		return sbHtml.toString();
 	}
 	
@@ -86,5 +88,17 @@ public class HtmlTag {
 			indent += "  ";
 		}
 		return indent;
+	}
+	
+	protected int countChildren() {
+		int count = size();
+		for (HtmlTag tag : vecTags) {
+			count += tag.countChildren();
+		}
+		return count;
+	}
+	
+	protected boolean needEndTag() {
+		return true;
 	}
 }
