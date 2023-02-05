@@ -1,6 +1,8 @@
 package common.base;
 
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Simple logging class
@@ -16,6 +18,10 @@ public class Logger {
 	 */
 	private static boolean gDebug = false;
 	
+	/** Format for printing the current date and time */
+	private DateFormat dateFormat;
+	
+	/** The name of the class writing logs */
 	private String unitName;
 	
 	/**
@@ -41,6 +47,7 @@ public class Logger {
 	public Logger(String unitName, boolean isDebug) {
 		this.unitName = unitName;
 		this.isDebug = isDebug;
+		this.dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		info("Created logger with debug=" + this.isDebug);
 	}
 	
@@ -103,10 +110,11 @@ public class Logger {
 		System.out.printf("%s [ERROR] %10s: %s%n", getTimestamp(), unitName, msg);
 	}
 	
+	/**
+	 * Get the current date and time.
+	 */
 	private String getTimestamp() {
-		Calendar calendar = Calendar.getInstance();
-		return String.format("%02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
-				calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+		return dateFormat.format(new Date());
 	}
 
 }
