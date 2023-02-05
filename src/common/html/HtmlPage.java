@@ -209,7 +209,7 @@ public class HtmlPage {
 		table = new TableHtmlTag(2);
 		for (int i=0; i<2; ++i) {
 			String src = "../../prog/python/Orfact/images/RandomImage0" + i + ".png";
-			table.addCell(HtmlTagFactory.image(src, "Orfact random image"));
+			table.addCell(HtmlTagFactory.image(src, "Orfact random image", "fail"));
 		}
 		test.add(table);
 		

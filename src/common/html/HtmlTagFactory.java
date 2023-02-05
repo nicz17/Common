@@ -99,9 +99,10 @@ public class HtmlTagFactory {
 	 * Creates an image element.
 	 * @param source  the image URL
 	 * @param title   the image tooltip title
+	 * @param alt     the image alternate text
 	 * @return  the created HTML tag
 	 */
-	public static HtmlTag image(String source, String title) {
+	public static HtmlTag image(String source, String title, String alt) {
 		HtmlTag img = new HtmlTag("img") {
 			protected boolean needEndTag() {
 				return false;
@@ -111,7 +112,25 @@ public class HtmlTagFactory {
 		if (title != null) {
 			img.addAttribute("title", title);
 		}
+		if (alt != null) {
+			img.addAttribute("alt", alt);
+		}
 		return img;
+	}
+	
+	/**
+	 * Creates a link with an image and no text.
+	 * @param href   the link URL
+	 * @param title  the link tooltip
+	 * @param imgSrc the image source
+	 * @param imgAlt the image alt text
+	 * @return  the created link
+	 */
+	public static HtmlTag imageLink(String href, String title, String imgSrc, String imgAlt) {
+		HtmlTag link = link(href, null, title, false);
+		HtmlTag img  = image(imgSrc, null, imgAlt);
+		link.addTag(img);
+		return link;
 	}
 	
 	/**
