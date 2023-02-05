@@ -46,8 +46,33 @@ public class HtmlTagFactory {
 	 * @return  the created HTML tag
 	 */
 	public static HtmlTag link(String href, String text, boolean isExternal) {
+		return link(href, text, null, isExternal);
+	}
+	
+	/**
+	 * Creates a link element.
+	 * @param href  the reference
+	 * @param text  the link text
+	 * @return  the created HTML tag
+	 */
+	public static HtmlTag link(String href, String text, String title) {
+		return link(href, text, title, false);
+	}
+	
+	/**
+	 * Creates a link element.
+	 * @param href  the reference
+	 * @param text  the link text
+	 * @param title the link tooltip text
+	 * @param isExternal  true to open link in new tab
+	 * @return  the created HTML tag
+	 */
+	public static HtmlTag link(String href, String text, String title, boolean isExternal) {
 		HtmlTag link = new HtmlTag("a", text);
 		link.addAttribute("href", href);
+		if (title != null) {
+			link.addAttribute("title", title);
+		}
 		if (isExternal) {
 			link.addAttribute("target", "_blank");
 		}
@@ -102,7 +127,7 @@ public class HtmlTagFactory {
 	 */
 	public static HtmlTag comment(final String sComment) {
 		return new HtmlTag("c") {
-			protected String toHtml(int iDepth, boolean isInline) {
+			public String toHtml(int iDepth, boolean isInline) {
 				return getIndent(iDepth) + "<!-- " + sComment + " -->";
 			}
 		};

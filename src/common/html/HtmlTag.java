@@ -17,7 +17,7 @@ public class HtmlTag {
 	private final String sName;
 	
 	/** The tag textual content. */
-	private final String sContent;
+	protected String sContent;
 	
 	/** The tag's attributes. */
 	private final Map<String, String> mapAttributes;
@@ -47,11 +47,15 @@ public class HtmlTag {
 		vecTags.add(tag);
 	}
 	
+	public void setClass(String sClass) {
+		this.addAttribute("class", sClass);
+	}
+	
 	public int size() {
 		return vecTags.size();
 	}
 	
-	protected String toHtml(int iDepth, boolean isInline) {
+	public String toHtml(int iDepth, boolean isInline) {
 		StringBuffer sbHtml = new StringBuffer();
 		int nChildren = countChildren();
 		
@@ -61,7 +65,7 @@ public class HtmlTag {
 		
 		sbHtml.append("<" + sName);
 		for (String sKey : mapAttributes.keySet()) {
-			sbHtml.append(" " + sKey + "='" + mapAttributes.get(sKey) + "'");
+			sbHtml.append(" " + sKey + "=\"" + mapAttributes.get(sKey) + "\"");
 		}
 		sbHtml.append(">");
 		
@@ -82,6 +86,11 @@ public class HtmlTag {
 		return sbHtml.toString();
 	}
 	
+	/**
+	 * Returns a newline followed by 2*iDepth spaces.
+	 * @param iDepth  the indent depth
+	 * @return newline and indent
+	 */
 	protected String getIndent(int iDepth) {
 		String indent = "\n";
 		for (int i=0; i<iDepth; ++i) {
