@@ -10,9 +10,25 @@ package common.html;
  */
 public class HtmlTagFactory {
 	
+	/**
+	 * Creates a div with the specified id.
+	 * @param id  the div id.
+	 * @return  the created div
+	 */
+	public static HtmlTag div(String id) {
+		HtmlTag div = new HtmlTag("div");
+		div.addAttribute("id", id);
+		return div;
+	}
+	
+	/**
+	 * Creates a div with myBox class.
+	 * @param title  the box title
+	 * @return  the created div
+	 */
 	public static HtmlTag blueBox(String title) {
-		DivHtmlTag div = new DivHtmlTag(null);
-		div.addAttribute("class", "myBox");
+		HtmlTag div = new HtmlTag("div");
+		div.setClass("myBox");
 		div.addTag(new HtmlTag("h2", title));
 		return div;
 	}
@@ -98,6 +114,12 @@ public class HtmlTagFactory {
 		return img;
 	}
 	
+	/**
+	 * Creates a link tag to reference CSS.
+	 * This element has no end tag.
+	 * @param url  the CSS URL
+	 * @return  the created lnik tag
+	 */
 	public static HtmlTag cssLink(String url) {
 		HtmlTag tagCss = new HtmlTag("link") {
 			protected boolean needEndTag() {
@@ -108,6 +130,24 @@ public class HtmlTagFactory {
 		tagCss.addAttribute("type", "text/css");
 		tagCss.addAttribute("href", url);
 		return tagCss;
+	}
+	
+	/**
+	 * Creates a meta HTML tag.
+	 * This element has no end tag.
+	 * @param name     the name
+	 * @param content  the content
+	 * @return  the created meta tag
+	 */
+	public static HtmlTag meta(String name, String content) {
+		HtmlTag tag = new HtmlTag("meta") {
+			protected boolean needEndTag() {
+				return false;
+			}
+		};
+		tag.addAttribute("name", name);
+		tag.addAttribute("content", content);
+		return tag;
 	}
 	
 	/**
