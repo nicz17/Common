@@ -138,6 +138,7 @@ public class HtmlPage {
 		head.addTag(new HtmlTag("title", sTitle));
 		head.addTag(HtmlTagFactory.cssLink(sPath + sCss));
 		head.addTag(HtmlTagFactory.meta("author", "Nicolas Zwahlen"));
+		head.addTag(HtmlTagFactory.meta().addAttribute("charset", "utf-8"));
 		html.addTag(head);
 	}
 	

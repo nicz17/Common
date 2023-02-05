@@ -134,6 +134,16 @@ public class HtmlTagFactory {
 	}
 	
 	/**
+	 * Creates a font tag with gray color.
+	 * @param text  the text
+	 * @return  the created tag
+	 */
+	public static HtmlTag grayFont(String text) {
+		HtmlTag tag = new HtmlTag("font", text).addAttribute("color", "gray");
+		return tag;
+	}
+	
+	/**
 	 * Creates a link tag to reference CSS.
 	 * This element has no end tag.
 	 * @param url  the CSS URL
@@ -152,6 +162,20 @@ public class HtmlTagFactory {
 	}
 	
 	/**
+	 * Creates an empty meta HTML tag.
+	 * This element has no end tag.
+	 * @return  the created meta tag
+	 */
+	public static HtmlTag meta() {
+		HtmlTag tag = new HtmlTag("meta") {
+			protected boolean needEndTag() {
+				return false;
+			}
+		};
+		return tag;
+	}
+	
+	/**
 	 * Creates a meta HTML tag.
 	 * This element has no end tag.
 	 * @param name     the name
@@ -159,11 +183,7 @@ public class HtmlTagFactory {
 	 * @return  the created meta tag
 	 */
 	public static HtmlTag meta(String name, String content) {
-		HtmlTag tag = new HtmlTag("meta") {
-			protected boolean needEndTag() {
-				return false;
-			}
-		};
+		HtmlTag tag = meta();
 		tag.addAttribute("name", name);
 		tag.addAttribute("content", content);
 		return tag;
