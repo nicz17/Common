@@ -75,6 +75,16 @@ public class HtmlPage {
 		add(table);
 		return table;
 	}
+
+	/**
+	 * Adds an empty list to the main div and returns it.
+	 * @return  the created list
+	 */
+	public ListHtmlTag addList() {
+		ListHtmlTag list = new ListHtmlTag();
+		add(list);
+		return list;
+	}
 	
 	/**
 	 * Adds a paragraph element to the main div and returns it.
@@ -96,6 +106,20 @@ public class HtmlPage {
 		HtmlTag box = HtmlTagFactory.blueBox(title);
 		add(box);
 		return box;
+	}
+	
+	/**
+	 * Creates a span element with the specified class and text
+	 * and adds it to the main div.
+	 * @param sClass  the span class
+	 * @param text    the text
+	 * @return  the created span
+	 */
+	public HtmlTag addSpan(String sClass, String text) {
+		HtmlTag span = new HtmlTag("span", text);
+		span.setClass(sClass);
+		add(span);
+		return span;
 	}
 	
 	/**
