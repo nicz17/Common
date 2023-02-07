@@ -1,5 +1,6 @@
 package common.html;
 
+import java.util.Vector;
 
 /**
  * An HTML UL list element.
@@ -25,6 +26,14 @@ public class ListHtmlTag extends HtmlTag {
 	public void addItem(HtmlTag tag) {
 		HtmlTag item = new HtmlTag("li");
 		item.addTag(tag);
+		this.addTag(item);
+	}
+	
+	public void addItem(Vector<HtmlTag> tags) {
+		HtmlTag item = new HtmlTag("li");
+		for (HtmlTag tag : tags) {
+			item.addTag(tag);
+		}
 		this.addTag(item);
 	}
 
