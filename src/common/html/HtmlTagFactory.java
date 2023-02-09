@@ -147,7 +147,7 @@ public class HtmlTagFactory {
 	 * Creates a link tag to reference CSS.
 	 * This element has no end tag.
 	 * @param url  the CSS URL
-	 * @return  the created lnik tag
+	 * @return  the created link tag
 	 */
 	public static HtmlTag cssLink(String url) {
 		HtmlTag tagCss = new HtmlTag("link") {
@@ -159,6 +159,29 @@ public class HtmlTagFactory {
 		tagCss.addAttribute("type", "text/css");
 		tagCss.addAttribute("href", url);
 		return tagCss;
+	}
+	
+	/**
+	 * Creates a link tag to reference favicon.
+	 * This element has no end tag.
+	 * @return  the created link tag
+	 */
+	public static HtmlTag iconLink() {
+		HtmlTag tag = new HtmlTag("link") {
+			protected boolean needEndTag() {
+				return false;
+			}
+		};
+		tag.addAttribute("rel", "icon");
+		tag.addAttribute("type", "image/x-icon");
+		tag.addAttribute("href", "favicon.ico");
+		return tag;
+	}
+	
+	public static HtmlTag script(String ref) {
+		HtmlTag tag = new HtmlTag("script");
+		tag.addAttribute("src", ref);
+		return tag;
 	}
 	
 	/**
