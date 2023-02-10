@@ -48,5 +48,15 @@ public class ListHtmlTag extends HtmlTag {
 		}
 		this.addTag(item);
 	}
+	
+	/**
+	 * Adds and returns an empty LI item tag.
+	 * @return the empty list item tag
+	 */
+	public HtmlTag addItem() {
+		HtmlTag item = new HtmlTag("li");
+		this.addTag(item);
+		return item;
+	}
 
 }
