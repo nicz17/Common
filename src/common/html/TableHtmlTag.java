@@ -14,15 +14,36 @@ public class TableHtmlTag extends HtmlTag {
 	
 	private final int nCellsPerRow;
 	private HtmlTag row;
+	private final boolean bAutoFill;
 
 	/**
 	 * Constructor.
 	 * @param nCellsPerRow  number of cells in a row
 	 */
 	public TableHtmlTag(int nCellsPerRow) {
+		this(nCellsPerRow, false);
+	}
+
+	/**
+	 * Constructor.
+	 * @param nCellsPerRow  number of cells in a row
+	 * @param bAutoFill  if true, add empty cells to fill last row
+	 */
+	public TableHtmlTag(int nCellsPerRow, boolean bAutoFill) {
 		super("table");
 		this.nCellsPerRow = nCellsPerRow;
+		this.bAutoFill = bAutoFill;
 		this.row = null;
+	}
+	
+	@Override
+	public String toHtml(int iDepth, boolean isInline) {
+		if (bAutoFill && row != null) {
+			while (row != null && row.size() % nCellsPerRow > 0) {
+				addCell();
+			}
+		}
+		return super.toHtml(iDepth, isInline);
 	}
 	
 	/**

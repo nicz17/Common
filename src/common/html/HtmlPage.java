@@ -68,6 +68,14 @@ public class HtmlPage {
 	}
 	
 	/**
+	 * Adds an anchor with the specified name.
+	 * @param sName  the anchor name
+	 */
+	public void addAnchor(String sName) {
+		add(HtmlTagFactory.anchor(sName));
+	}
+	
+	/**
 	 * Adds an empty table to the main div and returns it.
 	 * @param nCellsPerRow  number of cells per row.
 	 * @return  the created table
@@ -84,6 +92,21 @@ public class HtmlPage {
 	 */
 	public TableHtmlTag addTable(int nCellsPerRow, String width) {
 		TableHtmlTag table = new TableHtmlTag(nCellsPerRow);
+		if (width != null) {
+			table.addAttribute("width", width);
+		}
+		add(table);
+		return table;
+	}
+	
+	/**
+	 * Adds an empty table to the main div and returns it.
+	 * @param nCellsPerRow  number of cells per row.
+	 * @param width  table width
+	 * @return  the created table
+	 */
+	public TableHtmlTag addFillTable(int nCellsPerRow, String width) {
+		TableHtmlTag table = new TableHtmlTag(nCellsPerRow, true);
 		if (width != null) {
 			table.addAttribute("width", width);
 		}
