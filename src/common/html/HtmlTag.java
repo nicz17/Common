@@ -46,6 +46,59 @@ public class HtmlTag {
 	public void addTag(HtmlTag tag) {
 		vecTags.add(tag);
 	}
+
+	/**
+	 * Adds a H[1-6] title tag to this element.
+	 * @param iLevel  the title level (1 to 6).
+	 * @param sTitle  the title text
+	 */
+	public void addTitle(int iLevel, String sTitle) {
+		addTag(HtmlTagFactory.title(iLevel, sTitle));
+	}
+	
+	/**
+	 * Adds a paragraph element to this element and returns it.
+	 * @param text  the paragraph text.
+	 * @return  the created paragraph.
+	 */
+	public ParHtmlTag addParagraph(String text) {
+		ParHtmlTag par = new ParHtmlTag(text);
+		addTag(par);
+		return par;
+	}
+	
+	/**
+	 * Adds a myBox div to this element and returns it.
+	 * @param title  the myBox title
+	 * @return  the created div
+	 */
+	public HtmlTag addBox(String title) {
+		HtmlTag box = HtmlTagFactory.blueBox(title);
+		addTag(box);
+		return box;
+	}
+
+	/**
+	 * Adds an empty list to this element and returns it.
+	 * @return  the created list
+	 */
+	public ListHtmlTag addList() {
+		ListHtmlTag list = new ListHtmlTag();
+		addTag(list);
+		return list;
+	}
+	
+	public HtmlTag addLink(String href, String text, String title, boolean isExternal) {
+		HtmlTag link = HtmlTagFactory.link(href, text, title, isExternal);
+		addTag(link);
+		return link;
+	}
+	
+	public HtmlTag addGrayFont(String text) {
+		HtmlTag tag = HtmlTagFactory.grayFont(text);
+		addTag(tag);
+		return tag;
+	}
 	
 	public void setClass(String sClass) {
 		this.addAttribute("class", sClass);

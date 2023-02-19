@@ -27,8 +27,18 @@ public class HtmlTagFactory {
 	 * @return  the created div
 	 */
 	public static HtmlTag blueBox(String title) {
+		return blueBox(title, "myBox");
+	}
+	
+	/**
+	 * Creates a div with myBox class.
+	 * @param title  the box title
+	 * @param sClass the CSS class
+	 * @return  the created div
+	 */
+	public static HtmlTag blueBox(String title, String sClass) {
 		HtmlTag div = new HtmlTag("div");
-		div.setClass("myBox");
+		div.setClass(sClass);
 		div.addTag(new HtmlTag("h2", title));
 		return div;
 	}
