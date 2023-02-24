@@ -79,6 +79,7 @@ public class HtmlTagFactory {
 	 * Creates a link element.
 	 * @param href  the reference
 	 * @param text  the link text
+	 * @param title  the link tooltip
 	 * @return  the created HTML tag
 	 */
 	public static HtmlTag link(String href, String text, String title) {

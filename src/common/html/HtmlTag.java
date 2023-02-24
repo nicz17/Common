@@ -68,12 +68,34 @@ public class HtmlTag {
 	}
 	
 	/**
+	 * Adds a div to this element and returns it.
+	 * @param id  the div id
+	 * @return  the created div
+	 */
+	public HtmlTag addDiv(String id) {
+		HtmlTag tag = HtmlTagFactory.div(id);
+		addTag(tag);
+		return tag;
+	}
+	
+	/**
 	 * Adds a myBox div to this element and returns it.
 	 * @param title  the myBox title
 	 * @return  the created div
 	 */
 	public HtmlTag addBox(String title) {
 		HtmlTag box = HtmlTagFactory.blueBox(title);
+		addTag(box);
+		return box;
+	}
+	
+	/**
+	 * Adds a myBox div to this element and returns it.
+	 * @param title  the myBox title
+	 * @return  the created div
+	 */
+	public HtmlTag addBox(String title, String sClass) {
+		HtmlTag box = HtmlTagFactory.blueBox(title, sClass);
 		addTag(box);
 		return box;
 	}
@@ -88,8 +110,41 @@ public class HtmlTag {
 		return list;
 	}
 	
+	/**
+	 * Adds an anchor tag and returns it.
+	 * @param sName  the anchor reference
+	 * @return the created anchor
+	 */
+	public HtmlTag addAnchor(String sName) {
+		HtmlTag tag = HtmlTagFactory.anchor(sName);
+		addTag(tag);
+		return tag;
+	}
+
+	/**
+	 * Adds a link element.
+	 * @param href  the reference
+	 * @param text  the link text
+	 * @param title the link tooltip text
+	 * @param isExternal  true to open link in new tab
+	 * @return  the created HTML tag
+	 */
 	public HtmlTag addLink(String href, String text, String title, boolean isExternal) {
 		HtmlTag link = HtmlTagFactory.link(href, text, title, isExternal);
+		addTag(link);
+		return link;
+	}
+	
+	/**
+	 * Adds a link with an image and no text.
+	 * @param href   the link URL
+	 * @param title  the link tooltip
+	 * @param imgSrc the image source
+	 * @param imgAlt the image alt text
+	 * @return  the created link
+	 */
+	public HtmlTag addImageLink(String href, String title, String imgSrc, String imgAlt) {
+		HtmlTag link = HtmlTagFactory.imageLink(href, title, imgSrc, imgAlt);
 		addTag(link);
 		return link;
 	}
@@ -98,6 +153,28 @@ public class HtmlTag {
 		HtmlTag tag = HtmlTagFactory.grayFont(text);
 		addTag(tag);
 		return tag;
+	}
+	
+	public HtmlTag addSpan(String text) {
+		HtmlTag tag = new HtmlTag("span", text);
+		addTag(tag);
+		return tag;
+	}
+	
+	/**
+	 * Adds a JS script reference.
+	 * @param ref  the script source reference
+	 */
+	public void addScript(String ref) {
+		addTag(HtmlTagFactory.script(ref));
+	}
+	
+	/**
+	 * Adds a CSS stylesheet reference.
+	 * @param ref  the CSS source reference
+	 */
+	public void addCss(String ref) {
+		addTag(HtmlTagFactory.cssLink(ref));
 	}
 	
 	public void setClass(String sClass) {

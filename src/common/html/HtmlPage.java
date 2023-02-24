@@ -71,8 +71,10 @@ public class HtmlPage {
 	 * Adds an anchor with the specified name.
 	 * @param sName  the anchor name
 	 */
-	public void addAnchor(String sName) {
-		add(HtmlTagFactory.anchor(sName));
+	public HtmlTag addAnchor(String sName) {
+		HtmlTag tag = HtmlTagFactory.anchor(sName);
+		add(tag);
+		return tag;
 	}
 	
 	/**
