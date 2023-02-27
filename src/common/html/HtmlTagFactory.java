@@ -17,7 +17,9 @@ public class HtmlTagFactory {
 	 */
 	public static HtmlTag div(String id) {
 		HtmlTag div = new HtmlTag("div");
-		div.addAttribute("id", id);
+		if (id != null) {
+			div.addAttribute("id", id);
+		}
 		return div;
 	}
 	

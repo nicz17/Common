@@ -149,6 +149,18 @@ public class HtmlTag {
 		return link;
 	}
 	
+	/**
+	 * Adds an image.
+	 * @param imgSrc the image source
+	 * @param imgAlt the image alt text
+	 * @return  the created link
+	 */
+	public HtmlTag addImage(String imgSrc, String imgAlt) {
+		HtmlTag link = HtmlTagFactory.image(imgSrc, imgAlt, imgAlt);
+		addTag(link);
+		return link;
+	}
+	
 	public HtmlTag addGrayFont(String text) {
 		HtmlTag tag = HtmlTagFactory.grayFont(text);
 		addTag(tag);

@@ -13,12 +13,22 @@ import java.util.Vector;
 public class JavascriptHtmlTag extends HtmlTag {
 	
 	private final Vector<String> vecLines;
+	private final boolean isDocumentReady;
 
 	/**
 	 * Constructor
 	 */
 	public JavascriptHtmlTag() {
+		this(false);
+	}
+
+	/**
+	 * Constructor
+	 * @param isDocumentReady  add document-ready wrapper to script
+	 */
+	public JavascriptHtmlTag(boolean isDocumentReady) {
 		super("script");
+		this.isDocumentReady = isDocumentReady;
 		this.vecLines = new Vector<String>();
 	}
 
@@ -34,6 +44,11 @@ public class JavascriptHtmlTag extends HtmlTag {
 	
 	@Override
 	public String toHtml(int iDepth, boolean isInline) {
+		if (isDocumentReady) {
+			vecLines.add(0, "$(document).ready(function() {");
+			vecLines.add("});");
+		}
+		
 		StringBuffer sbHtml = new StringBuffer();
 		int nChildren = vecLines.size();
 
