@@ -58,6 +58,7 @@ public class DateTimeSelector extends Composite {
 		
 		GridLayout gl = new GridLayout(2, true);
 		gl.marginWidth = 0;
+		gl.marginHeight = 0;
 		this.setLayout(gl);
 		buildWidgets();
 	}
